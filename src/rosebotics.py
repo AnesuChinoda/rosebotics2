@@ -162,6 +162,7 @@ class DriveSystem(object):
         for k in range(sides-1):
             self.turn_degrees(degrees, duty_cycle_percent, stop_action)
             self.go_straight_inches(10, duty_cycle_percent, stop_action)
+
 # class ArmAndClaw(object):
 #     def __init__(self, touch_sensor, port=ev3.OUTPUT_A):
 #         self.motor = ev3.MediumMotor(port)
@@ -268,6 +269,8 @@ class ColorSensor(low_level_rb.ColorSensor):
             for k in range(len(colors)):
                 if self.get_color() == colors[k]:
                     break
+
+
 
 class InfraredSensorAsProximitySensor(object):
     """ Primary author of this class:  PUT_YOUR_NAME_HERE. """
