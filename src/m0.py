@@ -50,10 +50,10 @@ def run_test_drive_system():
 
     time.sleep(1)
     print()
-    print("Move forward at full speed for 1.5 seconds, coast to stop")
-    robot.drive_system.start_moving()
-    time.sleep(1.5)
-    robot.drive_system.stop_moving(rb.StopAction.COAST)
+    # print("Move forward at full speed for 1.5 seconds, coast to stop")
+    # robot.drive_system.start_moving()
+    # time.sleep(1.5)
+    # robot.drive_system.stop_moving(rb.StopAction.COAST)
 
     print("Left/right wheel positions:",
           robot.drive_system.left_wheel.get_degrees_spun(),
