@@ -9,11 +9,11 @@ import time
 
 def main():
     """ Runs YOUR specific part of the project """
-    follow_black_lines()
-    
-def follow_black_lines():
-
     robot = rb.Snatch3rRobot()
+    follow_black_lines(robot)
+    robot.drive_system.make_polygon(4, 50)
+
+def follow_black_lines(robot):
 
     while True:
         robot.drive_system.start_moving(50, 50)
@@ -25,5 +25,6 @@ def follow_black_lines():
             robot.drive_system.turn_degrees(10)
         if time.time() >= 30:
             break
+
 
 main()
