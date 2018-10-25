@@ -156,6 +156,12 @@ class DriveSystem(object):
                 self.stop_moving(stop_action)
                 break
 
+    def make_polygon(self, sides, duty_cycle_percent=100, stop_action=StopAction.BRAKE):
+        degrees = 360//sides
+        self.go_straight_inches(10, duty_cycle_percent, stop_action)
+        for k in range(sides-1):
+            self.turn_degrees(degrees, duty_cycle_percent, stop_action)
+            self.go_straight_inches(10, duty_cycle_percent, stop_action)
 # class ArmAndClaw(object):
 #     def __init__(self, touch_sensor, port=ev3.OUTPUT_A):
 #         self.motor = ev3.MediumMotor(port)
