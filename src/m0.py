@@ -58,7 +58,7 @@ def run_test_drive_system():
     print("Left/right wheel positions:",
           robot.drive_system.left_wheel.get_degrees_spun(),
           robot.drive_system.right_wheel.get_degrees_spun())
-    # robot.drive_system.go_straight_inches(10)
+    robot.drive_system.go_straight_inches(10)
 
 def run_test_touch_sensor():
     """ Tests the  touch_sensor  of the Snatch3rRobot. """
