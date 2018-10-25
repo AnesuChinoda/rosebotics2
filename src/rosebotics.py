@@ -207,7 +207,7 @@ class TouchSensor(low_level_rb.TouchSensor):
         """ Waits (doing nothing new) until the touch sensor is released. """
         # TODO
         while True:
-            if self.sensor.
+            if self.sensor.is_pressed is not True:
                 break
 
 class Camera(object):
