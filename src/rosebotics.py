@@ -111,8 +111,9 @@ class DriveSystem(object):
         self.start_moving(duty_cycle_percent, duty_cycle_percent)
         while True:
             if self.right_wheel.get_degrees_spun() >= inches*10:
+                self.stop_moving(stop_action)
                 break
-        self.stop_moving(stop_action)
+
 
 
 
@@ -130,6 +131,11 @@ class DriveSystem(object):
         # TODO: Do a few experiments to determine the constant that converts
         # TODO:   from wheel-degrees-spun to robot-degrees-spun.
         # TODO:   Assume that the conversion is linear with respect to speed.
+        self.start_moving(duty_cycle_percent, -duty_cycle_percent)
+        while True:
+            if self.right_wheel.get_degrees_spun() >= degrees:
+                self.stop_moving(stop_action)
+                break
 
     def turn_degrees(self,
                      degrees,
@@ -144,7 +150,11 @@ class DriveSystem(object):
         # TODO: Do a few experiments to determine the constant that converts
         # TODO:   from wheel-degrees-spun to robot-degrees-turned.
         # TODO:   Assume that the conversion is linear with respect to speed.
-
+        self.right_wheel.start_spinning(duty_cycle_percent)
+        while True:
+            if self.right_wheel.get_degrees_spun() >= degrees:
+                self.stop_moving(stop_action)
+                break
 
 # class ArmAndClaw(object):
 #     def __init__(self, touch_sensor, port=ev3.OUTPUT_A):
