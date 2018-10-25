@@ -192,7 +192,7 @@ class DriveSystem(object):
 
 
 class TouchSensor(low_level_rb.TouchSensor):
-    """ Primary author of this class:  PUT_YOUR_NAME_HERE. """
+    """ Primary author of this class:  Alec Polster. """
 
     def __init__(self, port=ev3.INPUT_1):
         super().__init__(port)
@@ -215,7 +215,7 @@ class Camera(object):
 
 
 class ColorSensor(low_level_rb.ColorSensor):
-    """ Primary author of this class:  PUT_YOUR_NAME_HERE. """
+    """ Primary author of this class:  Alec Polster. """
 
     def __init__(self, port=ev3.INPUT_3):
         super().__init__(port)
