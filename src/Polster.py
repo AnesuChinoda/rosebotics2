@@ -11,7 +11,7 @@ def main():
     """ Runs YOUR specific part of the project """
     robot = rb.Snatch3rRobot()
     follow_black_lines(robot)
-    robot.drive_system.make_polygon(4, 50)
+
 
 def follow_black_lines(robot):
     robot.drive_system.start_moving(50, 50)
