@@ -175,7 +175,7 @@ class ColorSensor(object):
 #         self.port = port
 #         super().__init__(port)
 #
-#     def get_value(self):
+#     def get_value(self):get_reflected_intensity
 #         """
 #         Returns the distance to the nearest object detected, in inches.
 #         """
