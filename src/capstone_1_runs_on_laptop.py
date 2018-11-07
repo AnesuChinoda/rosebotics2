@@ -13,21 +13,6 @@ Authors:  David Mutchler, his colleagues, and PUT_YOUR_NAME_HERE.
 
 # ------------------------------------------------------------------------------
 # Done: 2. With your instructor, discuss the "big picture" of laptop-robot
-# TODO:    communication:
-# TODO:      - One program runs on your LAPTOP.  It displays a GUI.  When the
-# TODO:        user presses a button intended to make something happen on the
-# TODO:        ROBOT, the LAPTOP program sends a message to its MQTT client
-# TODO:        indicating what it wants the ROBOT to do, and the MQTT client
-# TODO:        SENDS that message TO a program running on the ROBOT.
-# TODO:
-# TODO:      - Another program runs on the ROBOT. It stays in a loop, responding
-# TODO:        to events on the ROBOT (like pressing buttons on the IR Beacon).
-# TODO:        It also, in the background, listens for messages TO the ROBOT
-# TODO:        FROM the program running on the LAPTOP.  When it hears such a
-# TODO:        message, it calls the method in the DELAGATE object's class
-# TODO:        that the message indicates, sending arguments per the message.
-# TODO:
-# TODO:  Once you understand the "big picture", delete this TODO (if you wish).
 # ------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------
@@ -59,11 +44,11 @@ def main():
     # --------------------------------------------------------------------------
     # Done: 5. Add code above that constructs a   com.MqttClient   that will
     # Done:    be used to send commands to the robot.  Connect it to this pc.
-    # TODO:    Test.  When OK, delete this TODO.
+    # Done:    Test.
     # --------------------------------------------------------------------------
 
 
-def setup_gui(root_window):
+def setup_gui(root_window, mqtt_client):
     """ Constructs and sets up widgets on the given window. """
     frame = ttk.Frame(root_window, padding=10)
     frame.grid()
@@ -100,17 +85,17 @@ def handle_go_forward(entry_box, mqtt_client):
     # --------------------------------------------------------------------------
 
     # --------------------------------------------------------------------------
-    # TODO: 8. Add the single line of code needed to get the string that is
-    # TODO:    currently in the entry box.
-    # TODO:
-    # TODO:    Then add the single line of code needed to "call" a method on the
-    # TODO:    LISTENER that runs on the ROBOT, where that LISTENER is the
-    # TODO:    "delegate" object that is constructed when the ROBOT's code
-    # TODO:    runs on the ROBOT.  Send to the delegate the speed to use
-    # TODO:    plus a method name that you will implement in the DELEGATE's
-    # TODO:    class in the module that runs on the ROBOT.
-    # TODO:
-    # TODO:    Test by using a PRINT statement.  When done, delete this TODO.
+    # Done: 8. Add the single line of code needed to get the string that is
+    # Done:    currently in the entry box.
+    # Done:
+    # Done:    Then add the single line of code needed to "call" a method on the
+    # Done:    LISTENER that runs on the ROBOT, where that LISTENER is the
+    # Done:    "delegate" object that is constructed when the ROBOT's code
+    # Done:    runs on the ROBOT.  Send to the delegate the speed to use
+    # Done:    plus a method name that you will implement in the DELEGATE's
+    # Done:    class in the module that runs on the ROBOT.
+    # Done:
+    # Done:    Test by using a PRINT statement.
     # --------------------------------------------------------------------------
 
 
