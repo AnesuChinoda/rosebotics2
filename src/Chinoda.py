@@ -39,4 +39,5 @@ def beep_when_in_front_of_camera(robot):
     if robot.camera.get_biggest_blob().get_area > 1000:
         ev3.Sound.beep().wait()
 
+
 main()
