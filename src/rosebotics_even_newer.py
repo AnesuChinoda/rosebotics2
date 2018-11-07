@@ -215,11 +215,7 @@ class DriveSystem(object):
         # TODO:   Assume that the conversion is linear with respect to speed.
         # TODO: Don't forget that the Wheel object's position begins wherever
         # TODO:   it last was, not necessarily 0.
-        self.start_moving(duty_cycle_percent, duty_cycle_percent)
-        while True:
-            if self.right_wheel.get_degrees_spun() >= inches*10:
-                self.stop_moving()
-                break
+
     def spin_in_place_degrees(self,
                               degrees,
                               duty_cycle_percent=100,
@@ -238,11 +234,6 @@ class DriveSystem(object):
         # TODO:   Assume that the conversion is linear with respect to speed.
         # TODO: Don't forget that the Wheel object's position begins wherever
         # TODO:   it last was, not necessarily 0.
-        self.start_moving(duty_cycle_percent, -duty_cycle_percent)
-        while True:
-            if self.right_wheel.get_degrees_spun() >= degrees:
-                self.stop_moving()
-                break
 
     def turn_degrees(self,
                      degrees,
@@ -262,11 +253,6 @@ class DriveSystem(object):
         # TODO:   Assume that the conversion is linear with respect to speed.
         # TODO: Don't forget that the Wheel object's position begins wherever
         # TODO:   it last was, not necessarily 0.
-        self.right_wheel.start_spinning(duty_cycle_percent)
-        while True:
-            if self.right_wheel.get_degrees_spun() >= degrees:
-                self.stop_moving()
-                break
 
 
 class TouchSensor(low_level_rb.TouchSensor):
@@ -286,16 +272,10 @@ class TouchSensor(low_level_rb.TouchSensor):
     def wait_until_pressed(self):
         """ Waits (doing nothing new) until the touch sensor is pressed. """
         # TODO.
-        while True:
-            if self.sensor.is_pressed():
-                break
 
     def wait_until_released(self):
         """ Waits (doing nothing new) until the touch sensor is released. """
         # TODO
-        while True:
-            if self.sensor.is_pressed is not True:
-                break
 
 
 class ColorSensor(low_level_rb.ColorSensor):
@@ -352,9 +332,6 @@ class ColorSensor(low_level_rb.ColorSensor):
         be between 0 (no light reflected) and 100 (maximum light reflected).
         """
         # TODO.
-        while True:
-            if self.get_reflected_intensity() < reflected_light_intensity:
-                break
 
     def wait_until_intensity_is_greater_than(self, reflected_light_intensity):
         """
@@ -363,9 +340,6 @@ class ColorSensor(low_level_rb.ColorSensor):
         should be between 0 (no light reflected) and 100 (max light reflected).
         """
         # TODO.
-        while True:
-            if self.get_reflected_intensity() > reflected_light_intensity:
-                break
 
     def wait_until_color_is(self, color):
         """
@@ -374,9 +348,6 @@ class ColorSensor(low_level_rb.ColorSensor):
         The given color must be a Color (as defined above).
         """
         # TODO.
-        while True:
-            if self.get_color() == color:
-                break
 
     def wait_until_color_is_one_of(self, colors):
         """
@@ -385,10 +356,6 @@ class ColorSensor(low_level_rb.ColorSensor):
         Each item in the sequence must be a Color (as defined above).
         """
         # TODO.
-        while True:
-            for k in range(len(colors)):
-                if self.get_color() == colors[k]:
-                    break
 
 
 class Camera(object):
@@ -523,7 +490,7 @@ class InfraredAsProximitySensor(low_level_rb.InfraredSensor):
         is within its field of vision.
         """
         inches_per_cm = 2.54
-        return (70 / inches_per_cm) * self.get_distance_to_nearest_object() / 100
+        return 70 * inches_per_cm * self.get_distance_to_nearest_object() / 100
 
 
 class InfraredAsBeaconSensor(object):
@@ -633,6 +600,7 @@ class InfraredAsBeaconButtonSensor(object):
         return self._underlying_ir_sensor.blue_down
 
 
+
 class BrickButtonSensor(object):
     """
     A class for the buttons on the Brick.
@@ -688,9 +656,9 @@ class ArmAndClaw(object):
     """
     A class for the arm and its associated claw.
     Primary authors:  The ev3dev authors, David Mutchler, Dave Fisher,
-    their colleagues, the entire team, and Alec Polster.
+    their colleagues, the entire team, and PUT_YOUR_NAME_HERE.
     """
-    # DONE: In the above line, put the name of the primary author of this class.
+    # TODO: In the above line, put the name of the primary author of this class.
 
     def __init__(self, touch_sensor, port=ev3.OUTPUT_A):
         # The ArmAndClaw's  motor  is not really a Wheel, of course,
@@ -712,17 +680,7 @@ class ArmAndClaw(object):
         again at a reasonable speed. Then set the motor's position to 0.
         (Hence, 0 means all the way DOWN and 14.2 * 360 means all the way UP).
         """
-        # DONE: Do this as STEP 2 of implementing this class.
-        self.motor.start_spinning(100)
-        while True:
-            if self.touch_sensor.is_pressed() is True:
-                break
-        self.motor.start_spinning(-100)
-        while True:
-            if self.motor.get_degrees_spun() >= (14.2 * 360):
-                break
-        self.motor.stop_spinning(100)
-        self.motor.reset_degrees_spun(0)
+        # TODO: Do this as STEP 2 of implementing this class.
 
     def raise_arm_and_close_claw(self):
         """
@@ -731,22 +689,11 @@ class ArmAndClaw(object):
         Positive speeds make the arm go UP; negative speeds make it go DOWN.
         Stop when the touch sensor is pressed.
         """
-        # DONE: Do this as STEP 1 of implementing this class.
-        self.motor.start_spinning(100)
-        while True:
-            if self.touch_sensor.is_pressed() is True:
-                break
-        self.motor.stop_spinning(100)
+        # TODO: Do this as STEP 1 of implementing this class.
 
     def move_arm_to_position(self, position):
         """
         Spin the arm's motor until it reaches the given position.
         Move at a reasonable speed.
         """
-        # DONE: Do this as STEP 3 of implementing this class.
-        self.motor.start_spinning(100)
-        while True:
-            if self.motor.get_degrees_spun() == position:
-                self.motor.stop_spinning(100)
-                break
-
+        # TODO: Do this as STEP 3 of implementing this class.

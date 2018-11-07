@@ -5,6 +5,7 @@
 
 import rosebotics_new as rb
 import time
+import ev3dev.ev3 as ev3
 
 
 def main():
