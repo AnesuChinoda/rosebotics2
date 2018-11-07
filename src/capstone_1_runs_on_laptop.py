@@ -8,11 +8,11 @@ It uses MQTT to SEND information to a program running on the ROBOT.
 Authors:  David Mutchler, his colleagues, and PUT_YOUR_NAME_HERE.
 """
 # ------------------------------------------------------------------------------
-# TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.  Then delete this TODO.
+# Done: 1. Anesu Chinoda.  Then delete this Done.
 # ------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------
-# TODO: 2. With your instructor, discuss the "big picture" of laptop-robot
+# Done: 2. With your instructor, discuss the "big picture" of laptop-robot
 # TODO:    communication:
 # TODO:      - One program runs on your LAPTOP.  It displays a GUI.  When the
 # TODO:        user presses a button intended to make something happen on the
@@ -31,17 +31,15 @@ Authors:  David Mutchler, his colleagues, and PUT_YOUR_NAME_HERE.
 # ------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------
-# TODO: 3. One team member: change the following in mqtt_remote_method_calls.py:
-#                LEGO_NUMBER = 99
-# TODO:    to use YOUR robot's number instead of 99.
-# TODO:    Commit and push the change, then other team members Update Project.
-# TODO:    Then delete this TODO.
+# Done: 3. One team member: change the following in mqtt_remote_method_calls.py:
+#                LEGO_NUMBER = 29
+# Done:    to use YOUR robot's number instead of 99.
+# Done:    Commit and push the change, then other team members Update Project.
 # ------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------
-# TODO: 4. Run this module.
-# TODO:    Study its code until you understand how the GUI is set up.
-# TODO:    Then delete this TODO.
+# Done: 4. Run this module.
+# Done:    Study its code until you understand how the GUI is set up.
 # ------------------------------------------------------------------------------
 
 import tkinter
@@ -52,12 +50,15 @@ import mqtt_remote_method_calls as com
 def main():
     """ Constructs and runs a GUI for this program. """
     root = tkinter.Tk()
-    setup_gui(root)
 
+    mqtt_client = com.MqttClient()
+    mqtt_client.connect_to_ev3()
+
+    setup_gui(root, mqtt_client)
     root.mainloop()
     # --------------------------------------------------------------------------
-    # TODO: 5. Add code above that constructs a   com.MqttClient   that will
-    # TODO:    be used to send commands to the robot.  Connect it to this pc.
+    # Done: 5. Add code above that constructs a   com.MqttClient   that will
+    # Done:    be used to send commands to the robot.  Connect it to this pc.
     # TODO:    Test.  When OK, delete this TODO.
     # --------------------------------------------------------------------------
 
@@ -74,25 +75,28 @@ def setup_gui(root_window):
     go_forward_button.grid()
 
     go_forward_button['command'] = \
-        lambda: handle_go_forward()
+        lambda: handle_go_forward(speed_entry_box, mqtt_client)
+
+def handle_go_forward(entry_box, mqtt_client):
 
 
-def handle_go_forward():
     """
     Tells the robot to go forward at the speed specified in the given entry box.
     """
+
+    speed = entry_box.get()
+    print("Sending 'go_forward' to the robot, with a speed", speed)
+    mqtt_client.send_message('go forward', [speed])
     # --------------------------------------------------------------------------
-    # TODO: 6. This function needs the entry box in which the user enters
-    # TODO:    the speed at which the robot should move.  Make the 2 changes
-    # TODO:    necessary for the entry_box constructed in  setup_gui
-    # TODO:    to make its way to this function.  When done, delete this TODO.
+    # Done: 6. This function needs the entry box in which the user enters
+    # Done:    the speed at which the robot should move.  Make the 2 changes
+    # Done:    necessary for the entry_box constructed in  setup_gui
     # --------------------------------------------------------------------------
 
     # --------------------------------------------------------------------------
-    # TODO: 7. For this function to tell the robot what to do, it needs
-    # TODO:    the MQTT client constructed in main.  Make the 4 changes
-    # TODO:    necessary for that object to make its way to this function.
-    # TODO:    When done, delete this TODO.
+    # Done: 7. For this function to tell the robot what to do, it needs
+    # Done:    the MQTT client constructed in main.  Make the 4 changes
+    # Done:    necessary for that object to make its way to this function.
     # --------------------------------------------------------------------------
 
     # --------------------------------------------------------------------------
