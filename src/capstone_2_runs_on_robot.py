@@ -9,15 +9,7 @@ It uses MQTT to RECEIVE information from a program running on the LAPTOP.
 
 Authors:  David Mutchler, his colleagues, and Alec Polster.
 """
-# ------------------------------------------------------------------------------
-# DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.  Then delete this TODO.
-# ------------------------------------------------------------------------------
 
-# ------------------------------------------------------------------------------
-# DONE: 2. With your instructor, review the "big picture" of laptop-robot
-# TODO:    communication, per the comment in mqtt_sender.py.
-# TODO:    Once you understand the "big picture", delete this TODO.
-# ------------------------------------------------------------------------------
 
 import rosebotics_new as rb
 import time
@@ -26,15 +18,9 @@ import ev3dev.ev3 as ev3
 
 
 def main():
-    # --------------------------------------------------------------------------
-    # DONE: 3. Construct a Snatch3rRobot.  Test.  When OK, delete this TODO.
-    # --------------------------------------------------------------------------
+
     robot = rb.Snatch3rRobot()
-    # --------------------------------------------------------------------------
-    # DONE: 4. Add code that constructs a   com.MqttClient   that will
-    # TODO:    be used to receive commands sent by the laptop.
-    # TODO:    Connect it to this robot.  Test.  When OK, delete this TODO.
-    # --------------------------------------------------------------------------
+
     rc = RemoteControlEtc(robot)
     mqtt_client = com.MqttClient(rc)
     mqtt_client.connect_to_pc()
@@ -61,9 +47,9 @@ def main():
         # TODO:    Beacon is pressed.  Test.  When done, delete this TODO.
         # ----------------------------------------------------------------------
         if robot.beacon_button_sensor.is_top_red_button_pressed() is True:
-            ev3.Sound.beep()
+            ev3.Sound.beep().wait()
         if robot.beacon_button_sensor.is_top_blue_button_pressed() is True:
-            ev3.Sound.speak('Hello. How are you?')
+            ev3.Sound.speak('Hello. How are you?').wait()
         time.sleep(0.01)  # For the delegate to do its work
 
 class RemoteControlEtc(object):
