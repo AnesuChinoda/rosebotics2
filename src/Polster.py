@@ -12,7 +12,9 @@ def main():
     """ Runs YOUR specific part of the project """
     robot = rb.Snatch3rRobot()
     follow_black_lines(robot)
-
+    robot.arm.calibrate()
+    robot.arm.move_arm_to_position(50)
+    robot.arm.raise_arm_and_close_claw()
 
 def follow_black_lines(robot):
     robot.drive_system.start_moving(50, 50)
