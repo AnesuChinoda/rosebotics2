@@ -62,6 +62,7 @@ def setup_gui(root_window, mqtt_client):
     go_forward_button['command'] = \
         lambda: handle_go_forward(speed_entry_box, mqtt_client)
 
+
 def handle_go_forward(entry_box, mqtt_client):
 
 
