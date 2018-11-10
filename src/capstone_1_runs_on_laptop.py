@@ -65,7 +65,6 @@ def setup_gui(root_window, mqtt_client):
 
 def handle_go_forward(entry_box, mqtt_client):
 
-
     """
     Tells the robot to go forward at the speed specified in the given entry box.
     """
