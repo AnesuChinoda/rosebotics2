@@ -220,7 +220,6 @@ class DriveSystem(object):
             if self.right_wheel.get_degrees_spun() >= inches*10:
                 self.stop_moving()
                 break
-
     def spin_in_place_degrees(self,
                               degrees,
                               duty_cycle_percent=100,
@@ -239,15 +238,11 @@ class DriveSystem(object):
         # TODO:   Assume that the conversion is linear with respect to speed.
         # TODO: Don't forget that the Wheel object's position begins wherever
         # TODO:   it last was, not necessarily 0.
-        degree_multiplier = 6.06
-        self.left_wheel.reset_degrees_spun()
-        self.left_wheel.start_spinning(duty_cycle_percent)
-        self.right_wheel.start_spinning(duty_cycle_percent * -1)
+        self.start_moving(duty_cycle_percent, -duty_cycle_percent)
         while True:
-            if self.left_wheel.get_degrees_spun() >= degrees*degree_multiplier:
-                self.right_wheel.stop_spinning(stop_action)
-                self.left_wheel.stop_spinning(stop_action)
-
+            if self.right_wheel.get_degrees_spun() >= degrees:
+                self.stop_moving()
+                break
 
     def turn_degrees(self,
                      degrees,
@@ -394,21 +389,6 @@ class ColorSensor(low_level_rb.ColorSensor):
             for k in range(len(colors)):
                 if self.get_color() == colors[k]:
                     break
-
-    def is_blue(self):
-        if self.get_color() == Color.BLUE:
-            return True
-        return False
-
-    def is_red(self):
-        if self.get_color() == Color.RED:
-            return True
-        return False
-
-    def is_green(self):
-        if self.get_color() == Color.GREEN:
-            return True
-        return False
 
 
 class Camera(object):
@@ -723,7 +703,7 @@ class ArmAndClaw(object):
         # Sets the motor's position to 0 (the DOWN position).
         # At the DOWN position, the robot fits in its plastic bin,
         # so we start with the ArmAndClaw in that position.
-        # self.calibrate()
+        #self.calibrate()
 
     def calibrate(self):
         """
@@ -733,14 +713,20 @@ class ArmAndClaw(object):
         (Hence, 0 means all the way DOWN and 14.2 * 360 means all the way UP).
         """
         # DONE: Do this as STEP 2 of implementing this class.
-        self.raise_arm_and_close_claw()
+        print('Anesu')
+        self.motor.reset_degrees_spun()
+        self.motor.start_spinning(100)
+        while True:
+            if self.touch_sensor.is_pressed() is True:
+                break
         self.motor.reset_degrees_spun()
         self.motor.start_spinning(-100)
+        print('ALec')
         while True:
-            if self.motor.get_degrees_spun() <= -(14.2 * 360):
+            if abs(self.motor.get_degrees_spun()) >= (14.2 * 360):
                 break
-        self.motor.stop_spinning('brake')
-        self.motor.reset_degrees_spun()
+        self.motor.stop_spinning()
+        self.motor.reset_degrees_spun(0)
 
     def raise_arm_and_close_claw(self):
         """
@@ -754,7 +740,7 @@ class ArmAndClaw(object):
         while True:
             if self.touch_sensor.is_pressed() is True:
                 break
-        self.motor.stop_spinning()
+        self.motor.stop_spinning(100)
 
     def move_arm_to_position(self, position):
         """
