@@ -22,7 +22,7 @@ def main():
     root = tkinter.Tk()
 
     mqtt_client = com.MqttClient()
-    mqtt_client.connect_to_pc()
+    mqtt_client.connect_to_ev3()
     setup_gui(root, mqtt_client)
     root.mainloop()
 
@@ -49,7 +49,7 @@ def handle_go_forward(entry, mqtt_client):
 
     speed = entry.get()
     print("Sending 'go_forward' to the robot, with a speed", speed)
-    mqtt_client.send_message('go forward', [speed])
+    mqtt_client.send_message('go_forward', [speed])
 
 
 main()
