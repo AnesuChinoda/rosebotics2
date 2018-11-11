@@ -5,7 +5,7 @@ Mini-application:  Buttons on a Tkinter GUI tell the robot to:
 This module runs on your LAPTOP.
 It uses MQTT to SEND information to a program running on the ROBOT.
 
-Authors:  David Mutchler, his colleagues, and PUT_YOUR_NAME_HERE.
+Authors:  David Mutchler, his colleagues, and Anesu Chinoda.
 """
 # ------------------------------------------------------------------------------
 # Done: 1. Anesu Chinoda.  Then delete this Done.
@@ -53,25 +53,31 @@ def setup_gui(root_window, mqtt_client):
     frame = ttk.Frame(root_window, padding=10)
     frame.grid()
 
-    speed_entry_box = ttk.Entry(frame)
     go_forward_button = ttk.Button(frame, text="Go forward")
+    stop_button = ttk.Button(frame, text="stop")
 
-    speed_entry_box.grid()
     go_forward_button.grid()
+    stop_button.grid()
 
     go_forward_button['command'] = \
-        lambda: handle_go_forward(speed_entry_box, mqtt_client)
+        lambda: handle_go_forward(mqtt_client)
+
+    stop_button['command'] = lambda: handle_stop(mqtt_client)
 
 
-def handle_go_forward(entry_box, mqtt_client):
+def handle_go_forward(mqtt_client):
 
     """
     Tells the robot to go forward at the speed specified in the given entry box.
     """
 
-    speed = entry_box.get()
+    speed = 29
     print("Sending 'go_forward' to the robot, with a speed", speed)
-    mqtt_client.send_message('go forward', [speed])
+    mqtt_client.send_message('go_forward', [speed])
+
+def handle_stop(mqtt_client):
+    print("sending 'stop' to the robot")
+    mqtt_client.send_message('stop',[])
     # --------------------------------------------------------------------------
     # Done: 6. This function needs the entry box in which the user enters
     # Done:    the speed at which the robot should move.  Make the 2 changes

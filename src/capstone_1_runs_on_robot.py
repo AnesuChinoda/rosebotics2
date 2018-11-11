@@ -79,5 +79,9 @@ class RemoteControlEtc(object):
         print('Robot should start moving.')
         self.robot.drive_system.start_moving(speed, speed)
 
+    def stop(self):
+        print('Robot should stop moving.')
+        self.robot.drive_system.stop_moving()
+
 
 main()
