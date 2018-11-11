@@ -60,7 +60,7 @@ def main():
         if robot.beacon_button_sensor.is_top_red_button_pressed():
             ev3.Sound.beep().wait()
         if robot.beacon_button_sensor.is_top_blue_button_pressed():
-            ev3.Sound.speak("Fuck")
+            ev3.Sound.speak("Hello")
 
         time.sleep(0.01)  # For the delegate to do its work
 
@@ -82,6 +82,14 @@ class RemoteControlEtc(object):
     def stop(self):
         print('Robot should stop moving.')
         self.robot.drive_system.stop_moving()
+
+    def mario(self):
+        ev3.Sound.speak("lets a go")
+        while True:
+            if self.robot.color_sensor.get_color() == 6:
+                self.robot.drive_system.start_moving(50, 50)
+            if self.robot.color_sensor.get_color() == 8:
+                self.robot.drive_system.start_moving(25, 25)
 
 
 main()
