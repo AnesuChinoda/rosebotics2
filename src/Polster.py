@@ -25,7 +25,7 @@ def main():
             print('red', robot.color_sensor.red())
             spin_defender(robot)
         elif robot.color_sensor.green() > 70:
-            print('green', robot.color_sensor.red())
+            print('green', robot.color_sensor.green())
             celebrate(robot)
             break
     robot.drive_system.stop_moving()
