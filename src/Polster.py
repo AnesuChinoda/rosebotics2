@@ -19,13 +19,14 @@ def main():
     wait_for_ball(robot)
     hike_the_ball(robot)
     while True:
-        if robot.color_sensor.color == 2:
+        if robot.color_sensor.green() > 70:
             run_off_blocker(robot)
-        elif robot.color_sensor.color == 5:
+        elif robot.color_sensor.red() > 70:
             spin_defender(robot)
-        elif robot.color_sensor.color == 3:
+        elif robot.color_sensor.blue() > 70:
             celebrate(robot)
             break
+    time.sleep(10)
     robot.drive_system.stop_moving()
 
 
@@ -43,27 +44,24 @@ def run_off_blocker(robot):
         """
     robot.drive_system.start_moving(100, 100)
     time.sleep(2)
-    robot.drive_system.start_moving(50, 50)
+    robot.drive_system.start_moving(30, 30)
 
 
 def celebrate(robot):
     ev3.Sound.speak('Touchdown, touchdown, touchdown')
-    robot.arm.raise_arm_and_close_claw()
     robot.drive_system.right_wheel.start_spinning(100)
     robot.drive_system.left_wheel.start_spinning(-100)
-    time.sleep(6)
-    robot.drive_system.right_wheel.stop_spinning()
-    robot.drive_system.left_wheel.stop_spinning()
+    time.sleep(2)
     ev3.Sound.speak('Bengals win')
 
 
 def spin_defender(robot):
     robot.drive_system.right_wheel.start_spinning(100)
     robot.drive_system.left_wheel.start_spinning(-100)
-    time.sleep(6)
-    robot.drive_system.right_wheel.start_spinning(50)
-    robot.drive_system.left_wheel.start_spinning(50)
-    time.sleep(5)
+    time.sleep(4)
+    robot.drive_system.right_wheel.start_spinning(30)
+    robot.drive_system.left_wheel.start_spinning(30)
+    time.sleep(4)
 
 
 def wait_for_ball(robot):
@@ -77,6 +75,7 @@ def wait_for_ball(robot):
             break
         time.sleep(3)
         ev3.Sound.speak('Give me the ball')
+    time.sleep(5)
     ev3.Sound.speak('Ball in place, ready for play call')
 
 
