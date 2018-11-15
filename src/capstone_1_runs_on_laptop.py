@@ -50,32 +50,36 @@ def main():
 
 def setup_gui(root_window, mqtt_client):
     """ Constructs and sets up widgets on the given window. """
-    frame = ttk.Frame(root_window, padding=10)
+    frame = ttk.Frame(root_window, padding=30)
     frame.grid()
+    label1 = ttk.Label(frame, text='Mario', font=100)
+    go_forward_button = ttk.Button(frame, text="Go forward", width=20)
+    stop_button = ttk.Button(frame, text="stop", width=20)
+    mario = ttk.Button(frame, text="It's a me, Mario!", width=20)
+    label2 = ttk.Label(frame, text='Adjust starting speed:')
+    speed_adjuster = ttk.LabeledScale(frame, from_=0, to=100)
 
-    go_forward_button = ttk.Button(frame, text="Go forward")
-    stop_button = ttk.Button(frame, text="stop")
-    mario = ttk.Button(frame, text="It's a me, mario")
-
-    go_forward_button.grid()
-    stop_button.grid()
-    mario.grid()
-
+    go_forward_button.grid(row=2, column=0)
+    stop_button.grid(row=2, column=1)
+    mario.grid(row=2, column=2)
+    label1.grid(row=0, column=1)
+    label2.grid(row=1, column=0)
+    speed_adjuster.grid(row=3, column=0)
     go_forward_button['command'] = \
-        lambda: handle_go_forward(mqtt_client)
+        lambda: handle_go_forward(mqtt_client, speed_adjuster)
 
     stop_button['command'] = lambda: handle_stop(mqtt_client)
 
-    mario['command'] = lambda: handle_mario(mqtt_client)
+    # mario['command'] = lambda: handle_mario(mqtt_client)
 
 
-def handle_go_forward(mqtt_client):
+def handle_go_forward(mqtt_client, speed_adjuster):
 
     """
     Tells the robot to go forward at the speed specified in the given entry box.
     """
 
-    speed = 25
+    speed = speed_adjuster.value
     print("Sending 'go_forward' to the robot, with a speed", speed)
     mqtt_client.send_message('go_forward', [speed])
 

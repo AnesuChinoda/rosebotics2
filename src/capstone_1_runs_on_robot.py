@@ -37,7 +37,7 @@ def main():
     rc = RemoteControlEtc(robot)
     mqtt_client = com.MqttClient(rc)
     mqtt_client.connect_to_pc()
-
+    mario(robot)
     # --------------------------------------------------------------------------
     # Done: 5. Add a class for your "delegate" object that will handle messages
     # Done:    sent from the laptop.  Construct an instance of the class and
@@ -66,7 +66,6 @@ def main():
 
 
 class RemoteControlEtc(object):
-
     def __init__(self, robot):
         """
         Stores a robot.
@@ -83,13 +82,32 @@ class RemoteControlEtc(object):
         print('Robot should stop moving.')
         self.robot.drive_system.stop_moving()
 
-    def mario(self):
-        ev3.Sound.speak("lets a go")
-        while True:
-            if self.robot.color_sensor.get_color() == 6:
-                self.robot.drive_system.start_moving(50, 50)
-            if self.robot.color_sensor.get_color() == 8:
-                self.robot.drive_system.start_moving(25, 25)
+
+def mario(robot):
+    mushroom = 0
+    ev3.Sound.speak("lets uh go")
+    while True:
+
+        if robot.color_sensor.green() > 70:
+            ev3.Sound.beep().wait()
+            mushroom = 1
+            robot.drive_system.start_moving(100, 100)
+            time.sleep(3)
+        if robot.color_sensor.red() > 70:
+            if mushroom == 1:
+                robot.drive_system.start_moving(25, 25)
+                time.sleep(4)
+            if mushroom == 0:
+                robot.drive_system.stop_moving()
+                ev3.Sound.beep().wait()
+                break
+        if robot.color_sensor.blue() > 70:
+            robot.drive_system.stop_moving()
+            print('You won!')
+            break
+        time.sleep(1/100)
+
+
 
 
 main()

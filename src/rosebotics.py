@@ -28,7 +28,6 @@ class Color(Enum):
     RED = 5
     WHITE = 6
     BROWN = 7
-    ORAMGE = 8
 
 
 class Snatch3rRobot(object):
