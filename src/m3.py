@@ -35,22 +35,42 @@ def setup_gui(root_window, mqttclient):
     label2.grid(row=4, column=2)
     play_entry_box = ttk.Entry(frame)
     call_play_button = ttk.Button(frame, text="Call Play", width=20)
-
+    turn_right_button = ttk.Button(frame, text="Turn Right", width=15)
+    turn_left_button = ttk.Button(frame, text="Turn Left", width=15)
+    turn_left_button.grid(row=7, column=0)
+    turn_right_button.grid(row=7, column=2)
     play_entry_box.grid(row=5, column=0)
     call_play_button.grid(row=6, column=1)
 
     call_play_button['command'] = \
         lambda: handle_call_play(play_entry_box, new_thing, mqttclient)
 
+    turn_right_button['command'] = \
+        lambda: handle_turn_right(mqttclient)
+
+    turn_left_button['command'] = \
+        lambda: handle_turn_left(mqttclient)
+
+
 def handle_call_play(entry, slider, mqtt_client):
     """
     Tells the robot to go forward at the speed specified in the slider and say
     the play in the entry box.
     """
-    speed = int(slider.value)
+    speed = slider.value
     play = entry.get()
     print("Sending 'call_play' to the robot, with the play", play, "and the speed", speed)
     mqtt_client.send_message('call_play', [play, speed])
+
+
+def handle_turn_right(mqtt_client):
+    print("Sending 'turn_right' to the robot")
+    mqtt_client.send_message('turn_right', [])
+
+
+def handle_turn_left(mqtt_client):
+    print("Sending 'turn_left' to the robot")
+    mqtt_client.send_message('turn_left', [])
 
 
 main()
